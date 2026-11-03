@@ -1,0 +1,21 @@
+DC                                     VREF=2.500 V, ADC input AIN=2.500 V (mid-scale); the preamp AUX output is at 0.000 V, so C11 holds 2.500 V
+AC (preamp AUX -> ADC pin)             gain@1k = 0.819 (-1.73 dB), -3 dB at 9.4 Hz .. 125.6 kHz (preamp AUX output: C13 1 uF with R10 100k gives its own HPF; no output low-pass)
+Level                                  VCC 4.5 V: FS 2.70 Vpp, preamp 3.3 Vpp -> 2.70 Vpp (CLIPS by 0.0 dB) | VCC 4.7 V: FS 2.82 Vpp, preamp 3.3 Vpp -> 2.70 Vpp (OK) | VCC 5.0 V: FS 3.00 Vpp, preamp 3.3 Vpp -> 2.70 Vpp (OK) | VCC 5.5 V: FS 3.30 Vpp, preamp 3.3 Vpp -> 2.70 Vpp (OK)
+R4 choice                              
+                                       R4=4.7k: 3.3 Vpp -> 2.77 Vpp at VCC 4.5 V (FS 2.70), HPF 9.7 Hz, LPF 140.9 kHz
+                                       R4=5.6k: 3.3 Vpp -> 2.70 Vpp at VCC 4.5 V (FS 2.70), HPF 9.4 Hz, LPF 125.6 kHz
+                                       R4=6.8k: 3.3 Vpp -> 2.62 Vpp at VCC 4.5 V (FS 2.70), HPF 9.2 Hz, LPF 108.8 kHz
+                                       R4=8.2k: 3.3 Vpp -> 2.52 Vpp at VCC 4.5 V (FS 2.70), HPF 8.9 Hz, LPF 94.2 kHz
+Start-up                               ADC pin (preamp AUX output + coupling capacitors) settles to within 12-bit LSB after 1108 ms, 16-bit LSB after 1719 ms, within 1 mV after 1039 ms (initial value 2.50 V, final 2.500 V)
+Large signal                           preamp 2.8 Vpp -> ADC pin 1.35 .. 3.65 V = 2.30 Vpp around 2.50 V
+Monte Carlo (100 runs)                 gain@1k 0.784 .. 0.844 (mean 0.818), HPF 7.9 .. 11.2 Hz; max swing 2.79 Vpp for a 3.3 Vpp preamp output
+Noise                                  thermal noise of R4 = 1.36 uV rms in 20 kHz (9.6 nV/rtHz at 5.6k); the PCM1808 floor is about 15 uV rms (97 dB at 3 Vpp), so R4 is not significant
+Power DC, USB 5.00 V                   VBUS_F=4.997  +5V rail=4.997 V  5VA (ADC VCC)=4.992 V  +3V3=3.299 V  USB current=17.1 mA  -> ADC VCC OK (>=4.5 V)
+Power DC, USB 4.75 V                   VBUS_F=4.747  +5V rail=4.747 V  5VA (ADC VCC)=4.742 V  +3V3=3.299 V  USB current=17.1 mA  -> ADC VCC OK (>=4.5 V)
+Power DC worst case                    USB 4.75 V, ICC 11 mA, IDD 10.2 mA, preamp 10 mA: 5VA=4.741 V, rail=4.746 V
+Ripple USB -> 5VA                      attenuation: 1 kHz 0.0 dB, 100 kHz -37.1 dB, 1 MHz -118.8 dB, 10 MHz -179.0 dB (the PCM1808 and the preamp add their own supply rejection)
+Hot plug (5 V step, 1 uH cable)        VBUS_F peak 5.39 V, rail peak 5.39 V; 5VA (ADC VCC, abs. max 6.5 V) peak 6.34 V with a 6 uH bead model, 5.37 V with 1.5 uH
+Clock plan                             
+                                       fs 44.1 kHz: BCK=2.8224 MHz, MCLK 256fs=11.2896 MHz, 384fs=16.9344 MHz, 512fs=22.5792 MHz
+                                       fs 48 kHz: BCK=3.0720 MHz, MCLK 256fs=12.2880 MHz, 384fs=18.4320 MHz, 512fs=24.5760 MHz
+                                       fs 96 kHz: BCK=6.1440 MHz, MCLK 256fs=24.5760 MHz, 384fs=36.8640 MHz, 512fs=49.1520 MHz
