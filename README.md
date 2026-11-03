@@ -1,6 +1,6 @@
 # I2SBoard
 
-An add-on board for the [GuitarPreAmp](../GuitarPreAmp) or the [PiezoPreAmp](../PiezoPreAmp). It turns the preamp output into
+An add-on board for the [GuitarPreAmp](https://github.com/pschatzmann/GuitarPreAmp) or the [PiezoPreAmp](https://github.com/pschatzmann/PiezoPreAmp). It turns the preamp output into
 **I2S** for an **ESP32** or **RP2040**, using a PCM1808 stereo ADC. The microcontroller provides the master clock (MCLK, BCK, WS).
 A **USB-C** connector powers this board and the preamp.
 
